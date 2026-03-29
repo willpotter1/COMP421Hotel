@@ -1,1 +1,101 @@
-hi
+# COMP421 Hotel DB2 Application
+
+This project is a Java console application for the COMP421 DB2 project.
+
+## Project Structure
+
+- `src/Main.java`: main menu loop and application logic
+- `src/DBConnection.java`: JDBC connection helper
+
+## Database Environment
+
+- DBMS: DB2
+- Server: `winter2026-comp421.cs.mcgill.ca`
+- Database: `COMP421`
+- Group account used for this project: `cs421g57`
+
+The program reads DB2 credentials from environment variables:
+
+- `SOCSUSER`
+- `SOCSPASSWD`
+
+Do not hardcode credentials in the source code.
+
+## Copy Project To Server
+
+From your Mac:
+
+```bash
+scp -r /Users/williampotter/Documents/GitHub/mywebsite/COMP421Hotel cs421g57@winter2026-comp421.cs.mcgill.ca:~
+```
+
+If the `.git` directory causes permission issues, copying the project source is enough:
+
+```bash
+scp -r /Users/williampotter/Documents/GitHub/mywebsite/COMP421Hotel/src cs421g57@winter2026-comp421.cs.mcgill.ca:~/COMP421Hotel/
+scp /Users/williampotter/Documents/GitHub/mywebsite/COMP421Hotel/README cs421g57@winter2026-comp421.cs.mcgill.ca:~/COMP421Hotel/
+```
+
+## Log Into The Server
+
+```bash
+ssh -l cs421g57 winter2026-comp421.cs.mcgill.ca
+```
+
+Then move into the project directory:
+
+```bash
+cd ~/COMP421Hotel
+```
+
+## Set Environment Variables
+
+```bash
+export SOCSUSER=cs421g57
+export SOCSPASSWD='your_group_password'
+```
+
+## DB2 JDBC Jars
+
+The JDBC jars used on the server are:
+
+- `/opt/ibm/db2/V11.5/java/db2jcc4.jar`
+- `/opt/ibm/db2/V11.5/java/db2jcc_license_cu.jar`
+
+## Compile
+
+Run this on the McGill server from `~/COMP421Hotel`:
+
+```bash
+javac -cp src:/opt/ibm/db2/V11.5/java/db2jcc4.jar:/opt/ibm/db2/V11.5/java/db2jcc_license_cu.jar src/*.java
+```
+
+## Run
+
+Run this on the McGill server from `~/COMP421Hotel`:
+
+```bash
+java -cp src:/opt/ibm/db2/V11.5/java/db2jcc4.jar:/opt/ibm/db2/V11.5/java/db2jcc_license_cu.jar Main
+```
+
+## Expected Startup Output
+
+The program should connect successfully and print the DB2 context, including:
+
+- current date
+- current user
+- current schema
+
+For this project, the expected DB2 user/schema is `CS421G57`.
+
+After that, the main menu should appear.
+
+## Notes
+
+- Run the program on the McGill server, not on the local Mac environment.
+- Do not put semicolons at the end of SQL strings in JDBC.
+- Use the DB2 CLP separately if you want to test SQL manually:
+
+```bash
+db2 connect to COMP421
+```
